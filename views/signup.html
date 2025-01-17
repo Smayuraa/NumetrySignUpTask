@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup Page by Mayuri Sharma</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Roboto', sans-serif;
             display: flex;
@@ -12,33 +18,31 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background: url("/bgImg.jpg");
-            background-repeat: no-repeat;
-        background-size: cover;
+            background: url("/bgImg.jpg") no-repeat center center/cover;
             color: #ffffff;
         }
 
         .signup-container {
-            background: rgba(255, 255, 255, 0.1);
-            border:2px solid #696565;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid #ffffff;
             border-radius: 10px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            padding: 30px;
-            width: 60%;
-            backdrop-filter: blur(0px);
+            padding: 40px;
+            width: 80%;
+            max-width: 1000px;
         }
-    
+
         .signup-container h2 {
             font-size: 35px;
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
             color: #ffffff;
         }
-    
+
         .form-group {
             margin-bottom: 20px;
         }
-    
+
         .form-group label {
             font-size: 14px;
             font-weight: bold;
@@ -46,27 +50,28 @@
             display: block;
             color: #ffffff;
         }
-    
+
         .form-group input {
-            width: 95%;
+            width: 100%;
             padding: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.5);
             border-radius: 6px;
-            background-color: rgba(255, 255, 255, 0.2);
-            color: #7d7575;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
             font-size: 14px;
+            transition: all 0.3s ease;
         }
-    
+
         .form-group input:focus {
             border-color: #2980b9;
             outline: none;
-            background-color: rgba(255, 255, 255, 0.3);
+            background-color: rgba(255, 255, 255, 0.2);
         }
-    
+
         .password-container {
             position: relative;
         }
-    
+
         .toggle-password {
             position: absolute;
             top: 50%;
@@ -77,11 +82,11 @@
             color: #ffffff;
             opacity: 0.8;
         }
-    
+
         .toggle-password:hover {
             opacity: 1;
         }
-    
+
         .signup-btn {
             display: block;
             width: 100%;
@@ -95,43 +100,58 @@
             cursor: pointer;
             transition: background 0.3s ease;
         }
-    
+
         .signup-btn:hover {
             background: linear-gradient(135deg, #6dd5fa, #2980b9);
         }
-    
+
         .error {
             color: #e74c3c;
             font-size: 12px;
             margin-top: 5px;
         }
-    
+
         .name, .info, .address, .pass {
             display: flex;
             gap: 20px;
             flex-wrap: wrap;
             justify-content: space-between;
         }
-    
+
         .form-group {
             flex: 1;
             min-width: calc(33.33% - 20px);
         }
-    
+
         @media (max-width: 768px) {
             .name, .info, .address, .pass {
                 flex-direction: column;
             }
-    
+
             .form-group {
                 min-width: 100%;
             }
-    
+
             .signup-container {
                 width: 90%;
             }
         }
-    </style>    
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .login-link a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
     <div class="signup-container">
@@ -196,6 +216,10 @@
             </div>
             <button type="submit" class="signup-btn">Sign Up</button>
         </form>
+
+        <div class="login-link">
+            <p>Already have an account? <a href="/login">Login here</a></p>
+        </div>
     </div>
 
     <script>
