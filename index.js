@@ -6,6 +6,9 @@ const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const User = require("./modules/user");
+const multer = require('multer');
+const { storage } = require("./cloudConfig"); 
+const upload=multer({storage})
 require("dotenv").config();
 
 const app = express();
@@ -78,12 +81,13 @@ passport.deserializeUser(async function (id, done) {
   }
 });
 
+// Middleware for authentication check
 function isAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next(); // Proceed to next middleware or route handler
-    } else {
-        res.redirect("/login"); // Redirect to login page if not authenticated
-    }
+  if (req.isAuthenticated()) {
+    return next(); // Proceed to next middleware or route handler
+  } else {
+    res.redirect("/login"); // Redirect to login page if not authenticated
+  }
 }
 
 // Routes
@@ -94,8 +98,14 @@ app.get("/", (req, res) => {
 });
 
 // Signup route
-app.post("/signup", async (req, res) => {
+app.post("/signup", upload.single('profilePicture'), async (req, res) => {
   const { firstName, middleName, lastName, email, phone, country, state, city, password } = req.body;
+  // res.send(req.file)
+
+  // Get the uploaded file's Cloudinary URL
+  const profilePictureUrl = req.file ? req.file.path : null;
+
+   
 
   try {
     const existingUser = await User.findOne({ email });
@@ -116,11 +126,12 @@ app.post("/signup", async (req, res) => {
       state,
       city,
       password: hashedPassword, // Save the hashed password
+      profilePicture: profilePictureUrl, // Save Cloudinary URL in the database
     });
 
     await newUser.save();
     console.log("User registered successfully");
-    res.redirect("/"); // Redirect to signup page or success page
+    res.redirect("/login"); // Redirect to login page
   } catch (error) {
     console.error("Error saving user:", error);
     res.status(500).json({ message: "Error saving user", error: error.message });
@@ -162,6 +173,8 @@ app.get("/logout", (req, res) => {
     res.redirect("/login");
   });
 });
+
+
 
 // Start server
 app.listen(8080, () => {

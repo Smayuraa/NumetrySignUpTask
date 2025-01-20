@@ -156,7 +156,7 @@
 <body>
     <div class="signup-container">
         <h2>Sign Up Form</h2>
-        <form method="post" action="/signup">
+        <form method="post" action="/signup" enctype="multipart/form-data">
             <div class="name">
                 <div class="form-group">
                     <label for="firstName">First Name</label>
@@ -196,6 +196,10 @@
                     <label for="city">City</label>
                     <input type="text" id="city" name="city" required>
                 </div>
+            </div>
+            <div class="form-group">
+                <label for="profilePicture">Profile Picture</label>
+                <input type="file" id="profilePicture" name="profilePicture" accept="image/*">
             </div>
             <div class="pass">
                 <div class="form-group">
