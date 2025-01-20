@@ -8,16 +8,12 @@ cloudinary.config({
     api_secret: process.env.API_SECRET
 });
 
-
-
-
-// Use CloudinaryStorage for file upload
 const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
-        folder: 'NumetryTask',  // Folder to store uploaded files
-        allowed_formats: ["png", "jpg", "jpeg"], // Supported formats
-        // You can define `public_id` here if needed, or let Cloudinary auto-generate it.
+        folder: 'NumetryTask',  
+        allowed_formats: ["png", "jpg", "jpeg"], 
+     
     }
 });
 

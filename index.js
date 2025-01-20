@@ -28,15 +28,15 @@ mongoose
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "views")));
-app.set("view engine", "ejs"); // Set EJS as view engine
+app.set("view engine", "ejs");
 
 // Session setup
 app.use(
   session({
-    secret: "your_secret_key", // Use a secure secret in production
+    secret: "key", 
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false }, // For development, set to false (set true when using HTTPS)
+    cookie: { secure: false }, 
   })
 );
 
@@ -84,15 +84,15 @@ passport.deserializeUser(async function (id, done) {
 // Middleware for authentication check
 function isAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
-    return next(); // Proceed to next middleware or route handler
+    return next(); 
   } else {
-    res.redirect("/login"); // Redirect to login page if not authenticated
+    res.redirect("/login"); 
   }
 }
 
 // Routes
 
-// Home route, renders signup form
+//signup form
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "views", "signup.html"));
 });
@@ -125,13 +125,13 @@ app.post("/signup", upload.single('profilePicture'), async (req, res) => {
       country,
       state,
       city,
-      password: hashedPassword, // Save the hashed password
-      profilePicture: profilePictureUrl, // Save Cloudinary URL in the database
+      password: hashedPassword,
+      profilePicture: profilePictureUrl,
     });
 
     await newUser.save();
     console.log("User registered successfully");
-    res.redirect("/login"); // Redirect to login page
+    res.redirect("/login");
   } catch (error) {
     console.error("Error saving user:", error);
     res.status(500).json({ message: "Error saving user", error: error.message });
@@ -151,11 +151,11 @@ app.post(
     failureMessage: true,
   }),
   function (req, res) {
-    res.redirect("/dash"); // Redirect to dashboard if login is successful
+    res.redirect("/dash");
   }
 );
 
-// Dashboard route (only accessible if authenticated)
+// Dashboard route
 app.get("/dash", isAuthenticated ,(req, res) => {
   if (req.isAuthenticated()) {
     res.send("Welcome to your dashboard");
@@ -174,9 +174,6 @@ app.get("/logout", (req, res) => {
   });
 });
 
-
-
-// Start server
 app.listen(8080, () => {
   console.log("Server is listening on port 8080");
 });
