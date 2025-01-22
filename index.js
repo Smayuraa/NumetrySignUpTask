@@ -101,11 +101,7 @@ app.get("/", (req, res) => {
 app.post("/signup", upload.single('profilePicture'), async (req, res) => {
   const { firstName, middleName, lastName, email, phone, country, state, city, password } = req.body;
   // res.send(req.file)
-
-  // Get the uploaded file's Cloudinary URL
   const profilePictureUrl = req.file ? req.file.path : null;
-
-   
 
   try {
     const existingUser = await User.findOne({ email });
